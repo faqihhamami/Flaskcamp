@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Daftar Pengguna</title>
+</head>
+<body>
+    <h1>Daftar Pengguna</h1>
+    <p>Hi, Selamat datang {{ user }} </p>
+
+    {% if user == 'andi' %}
+    <p>selamat pagi {{user}}</p>
+    {% elif user == 'toni' %}
+    <p>selamat siang {{user}}</p>
+    {% else %}
+    <p>anda bukan andi dan toni</p>
+    {% endif %}
+</body>
+</html>

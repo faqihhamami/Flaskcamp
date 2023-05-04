@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block title %}Dosen Page{% endblock %}
+
+
+{% block content %}
+{% if session.logged_in %}
+    <h3 class="one">Welcome Dosen</h3>
+    <a href="{{ url_for('logout') }}" class="btn btn-info" role="button">Logout</a>
+
+  
+    <table class="table">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nama Dosen</th>
+        <th scope="col">Kampus</th>
+        <th scope="col">Jurusan</th>
+        <th scope="col">Aksi</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th scope="row">1</th>
+        <td>Faqih</td>
+        <td>Telkom University</td>
+        <td>Information System</td>
+        <td><button type="button" class="btn btn-warning btn-sm">Edit</button> <button type="button" class="btn btn-danger btn-sm">Delete</button></td> 
+    </tr>
+    <tr>
+        <th scope="row">2</th>
+        <td>Aulia</td>
+        <td>Telkom University</td>
+        <td>Informatics</td>
+        <td><button type="button" class="btn btn-warning btn-sm">Edit</button> <button type="button" class="btn btn-danger btn-sm">Delete</button></td> 
+    </tr>
+    <tr>
+        <th scope="row">3</th>
+        <td>Ali Fauzi</td>
+        <td>Brawijaya University</td>
+        <td>Informatics</td>
+        <td><button type="button" class="btn btn-warning btn-sm">Edit</button> <button type="button" class="btn btn-danger btn-sm">Delete</button></td> 
+    </tr>
+    </tbody>
+</table>
+{% endif %}
+
+
+    {% if not session.logged_in %}
+        Anda belum login. <a href="{{ url_for('login') }}">Login disini </a>
+    {% endif %}
+
+
+{% endblock %}

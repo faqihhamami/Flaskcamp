@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block title %}Dosen Page{% endblock %}
+
+
+{% block content %}
+{% if session.logged_in %}
+    <h3 class="one">Welcome Dosen</h3>
+    <a href="/dosen/tambah" class="btn btn-primary" role="button">Tambah dosen</a>
+    <a href="{{ url_for('logout') }}" class="btn btn-info" role="button">Logout</a>
+
+  
+    <table class="table">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nama Dosen</th>
+        <th scope="col">Kampus</th>
+        <th scope="col">Jurusan</th>
+        <th scope="col">Aksi</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for d in dosen %}
+            <tr>
+                <td>{{ d[0] }}</td>
+                <td>{{ d[1] }}</td>
+                <td>{{ d[2] }}</td>
+                <td>{{ d[3] }}</td>
+                 <td> <a href="/dosen/edit/{{ d[0] }}" class="btn btn-warning" role="button">Edit</a>
+                    <a href="/dosen/delete/{{ d[0] }}" class="btn btn-danger" role="button" onclick="return confirm('Are you sure you want to delete?');">Delete</a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+
+    {% if not session.logged_in %}
+        Anda belum login. <a href="{{ url_for('login') }}">Login disini </a>
+    {% endif %}
+
+
+{% endblock %}
