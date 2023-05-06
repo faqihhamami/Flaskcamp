@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}Halaman registrasi{% endblock %}
+
+{% block content %}
+    <form action="{{ url_for('artikel') }}" method=post>
+        <div class="mb-3 mt-3">
+            <label for="judul" class="form-label">judul:</label>
+            <input type="text" class="form-control" placeholder="title" name="title" required>
+         </div>
+       <div class="mb-3 mt-3">
+          <label for="description" class="form-label">Deskripsi:</label>
+          <textarea name="description" class="form-control"  cols="100%" rows="10"></textarea>
+       </div>
+        <div class="mb-3">
+          <label for="category" class="form-label">Kategori:</label>
+          <SELECT name="category" class="form-control" >
+            {% for j in categories %}
+                <OPTION value={{j[0]}}>{{j[1]}}</OPTION>
+            {% endfor %}
+            </SELECT>
+       </div>
+          <button type="submit" class="btn btn-primary">Tambah Artikel</button>
+     </form>
+{% endblock %}

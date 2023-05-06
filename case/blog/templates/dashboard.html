@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block title %}Dosen Page{% endblock %}
+
+
+{% block content %}
+{% if session.logged_in %}
+    <h3 class="one">Welcome </h3>
+    <a href="/artikel" class="btn btn-primary" role="button">Tambah Artikel</a>
+    <a href="{{ url_for('logout') }}" class="btn btn-info" role="button">Logout</a>
+
+  
+    <div class="row">
+        Hello welcome {{ session['email'] }} 
+    </div>
+
+    <div class="row">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Judul</th>
+                <th scope="col">Penulis</th>
+                <th scope="col">Kategori</th>
+                <th scope="col">Tanggal Terbit</th>
+                <th scope="col">Aksi</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for d in articles %}
+                    <tr>
+                        <td>{{ d[1] }}</td>
+                        <td>{{ d[2] }}</td>
+                        <td>{{ d[3] }}</td>
+                        <td>{{ d[4] }}</td>
+                         <td> <a href="/artikel/edit/{{ d[0] }}" class="btn btn-warning" role="button">Edit</a>
+                            <a href="/artikel/delete/{{ d[0] }}" class="btn btn-danger" role="button" onclick="return confirm('Are you sure you want to delete?');">Delete</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}
+
+
+    {% if not session.logged_in %}
+        Anda belum login. <a href="{{ url_for('login') }}">Login disini </a>
+    {% endif %}
+
+
+{% endblock %}

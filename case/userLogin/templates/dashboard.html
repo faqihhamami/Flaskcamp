@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block title %}Dosen Page{% endblock %}
+
+
+{% block content %}
+{% if session.logged_in %}
+    <h3 class="one">Welcome </h3>
+    <a href="{{ url_for('logout') }}" class="btn btn-info" role="button">Logout</a>
+
+  
+    <div class="row">
+        Hello welcome {{ session['email'] }}
+    </div>
+{% endif %}
+
+
+    {% if not session.logged_in %}
+        Anda belum login. <a href="{{ url_for('login') }}">Login disini </a>
+    {% endif %}
+
+
+{% endblock %}
