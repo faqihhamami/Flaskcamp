@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block title %}Upload Page{% endblock %}
+
+
+{% block content %}
+    <h3 class="one">Welcome to upload case</h3>
+
+  
+    <div class="row">
+        <form method="POST" enctype="multipart/form-data" action="/upload">
+            <input type="file" name="file" name="uploaded-file" accept=".jpg" class="form-control">
+            <input type="submit" value="Submit" class="btn btn-success">
+        </form>
+    </div>
+
+{% endblock %}

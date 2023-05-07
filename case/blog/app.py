@@ -1,6 +1,6 @@
 from flask import Flask, render_template, url_for, redirect, request, session, flash
 from flask_mysqldb import MySQL
-
+import hashlib
 
 app = Flask(__name__)
 app.secret_key = "asdfghjkl12345fdsa_fdsakld8rweodfds"
@@ -26,8 +26,11 @@ def registrasi():
         email = request.form['email']
         password = request.form['password']
 
+        # encrypt password
+        password = hashlib.md5(password.encode())
+
         cursor = mysql.connection.cursor()
-        cursor.execute('''INSERT INTO authors(username, email, password) VALUES(%s,%s,%s)''',(username, email, password))
+        cursor.execute('''INSERT INTO authors(username, email, password) VALUES(%s,%s,%s)''',(username, email, password.hexdigest()))
         mysql.connection.commit()
         cursor.close()
         flash('Data added successfully','success')
@@ -46,10 +49,12 @@ def login():
             email = request.form['email']
             password = request.form['password']
 
+             # encrypt password
+            password = hashlib.md5(password.encode())
             
             # get username and password from db 
             cursor = mysql.connection.cursor()
-            cursor.execute('SELECT * FROM authors WHERE email = %s AND password = %s', (email, password))
+            cursor.execute('SELECT * FROM authors WHERE email = %s AND password = %s', (email, password.hexdigest()))
 
             user = cursor.fetchone()
 

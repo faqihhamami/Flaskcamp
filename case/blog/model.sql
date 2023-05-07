@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS `authors` (
     PRIMARY KEY (`id_author`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-INSERT INTO `authors` (`id_author`, `username`, `password`, `email`) VALUES (1, 'admin', '12345', 'admin@gmail.com');
+INSERT INTO `authors` (`username`, `password`, `email`) VALUES ('admin', md5('12345'), 'admin@gmail.com');
 
 
 -- table category 

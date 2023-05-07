@@ -30,7 +30,7 @@ def registrasi():
         password = hashlib.md5(password.encode())
 
         cursor = mysql.connection.cursor()
-        cursor.execute('''INSERT INTO accounts(username, email, password) VALUES(%s,%s,%s)''',(username, email, password.hexdigest()))
+        cursor.execute('''INSERT INTO multiaccounts(username, email, password, level) VALUES(%s,%s,%s,%s)''',(username, email, password.hexdigest(),2))
         mysql.connection.commit()
         cursor.close()
         flash('Data added successfully','success')
@@ -54,13 +54,14 @@ def login():
             
             # get username and password from db 
             cursor = mysql.connection.cursor()
-            cursor.execute('SELECT * FROM accounts WHERE email = %s AND password = %s', (email, password.hexdigest()))
+            cursor.execute('SELECT * FROM multiaccounts WHERE email = %s AND password = %s', (email, password.hexdigest()))
 
             user = cursor.fetchone()
 
             if user:
                 session['logged_in'] = True
                 session['email'] = user[3]
+                session['level'] = user[4]
 
                 flash('Login successful','success')
                 cursor.close()
@@ -82,6 +83,7 @@ def dashboard():
 def logout():
     session.pop('logged_in', None)
     session.pop('email', None)
+    session.pop('level', None)
     flash('Logout successful','success')
     return redirect(url_for('login'))
     
