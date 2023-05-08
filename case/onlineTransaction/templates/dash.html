@@ -5,8 +5,50 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Halaman transaction</title>
+    <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.css">
 </head>
 <body>
-    {{ alltransaction }}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <table class="table" id="data" >
+                    <thead>
+                    <tr>
+                        <th scope="col">Product</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Aksi</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for d in alltransaction %}
+                            <tr>
+                                <td>{{ d[1] }}</td>
+                                <td>{{ d[2] }}</td>
+                                <td>{{ d[3] }}</td>
+                                 <td> <a href="#" class="btn btn-warning" role="button">Edit</a>
+                                    <a href="#" class="btn btn-danger" role="button" onclick="return confirm('Are you sure you want to delete?');">Delete</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.js"></script>
+
+    <script>
+        $(document).ready(function () {
+          $('#data').DataTable();
+        });
+      </script>
 </body>
 </html>
+
+<!-- https://blog.miguelgrinberg.com/post/beautiful-interactive-tables-for-your-flask-templates -->
