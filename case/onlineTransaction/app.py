@@ -37,7 +37,7 @@ def buy():
 @app.route('/dash', methods=['POST', 'GET'])
 def dash():
     cursor = mysql.connection.cursor()
-    cursor.execute("SELECT * FROM transaction")
+    cursor.execute("SELECT * FROM transaction order by id desc")
     alltransaction = cursor.fetchall()
     cursor.close()
 
