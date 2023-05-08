@@ -79,6 +79,16 @@ def login():
 def dashboard():
     return render_template('dashboard.html')
 
+@app.route('/users')
+def users():
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT * FROM multiaccounts")
+    users = cursor.fetchall()
+    cursor.close()
+
+    return render_template('users/view.html', users=users)
+
+
 @app.route('/logout')
 def logout():
     session.pop('logged_in', None)
