@@ -181,5 +181,21 @@ def logout():
     flash('Logout successful','success')
     return redirect(url_for('login'))
     
+
+#------------ tampilan depan 
+@app.route('/front')
+def front():
+    cursor = mysql.connection.cursor()
+    cursor.execute('''
+        SELECT id_art, title, username, name_cat, datetime, description
+        FROM articles 
+        INNER JOIN authors ON articles.author = AUTHORS.id_author 
+        INNER JOIN categories ON articles.category = categories.id_cat
+        ORDER BY datetime DESC
+    ''')
+
+    articles = cursor.fetchall()
+    return render_template('front.html', articles=articles)
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='50', debug=True)
