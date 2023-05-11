@@ -1,0 +1,10 @@
+Date: 11/5/2023
+Time: 15:18
+Phone Number: +6281563725902
+Message: No Invoice 12583691 Anda telah membeli ['milo'] Total belanja adalah 20000
+--------------------
+Date: 11/5/2023
+Time: 15:23
+Phone Number: +6281563725902
+Message: No Invoice 58784414 Anda telah membeli ['milo', 'coklat'] Total belanja adalah 31000
+--------------------

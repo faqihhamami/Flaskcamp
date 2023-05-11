@@ -1,6 +1,9 @@
 from flask import Flask, render_template, url_for, redirect, request, session, flash, jsonify
 from flask_mysqldb import MySQL
 from random import randint
+# import pywhatkit as w
+from datetime import datetime
+
 
 app = Flask(__name__)
 app.secret_key = "asdfghjkl12345fdsa_fdsakld8rweodfds"
@@ -60,6 +63,17 @@ def buy():
         mysql.connection.commit()
 
         cursor.close()
+        
+        # get hour and minute 
+        now = datetime.now()
+        h = now.hour
+        m = now.minute
+
+        # send to wa  - install pywhatkit 5.4
+        import pywhatkit as w
+        note = f'No Invoice {invoicenumber} \nAnda telah membeli {products} \nTotal belanja adalah {total}'
+        w.sendwhatmsg("+6281563725902", str(note) ,h,m+2)
+
         return redirect(url_for('dash'))
 
 @app.route('/dash', methods=['POST', 'GET'])
