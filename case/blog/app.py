@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect, request, session, flash
+from flask import Flask, render_template, url_for, redirect, request, session, flash, jsonify
 from flask_mysqldb import MySQL
 import hashlib
 
@@ -196,6 +196,52 @@ def front():
 
     articles = cursor.fetchall()
     return render_template('front.html', articles=articles)
+
+
+# --------------API 
+@app.route('/api/artikel', methods=['GET', 'POST'])
+def dosen():
+    if request.method == 'GET':
+        cursor = mysql.connection.cursor()
+        cursor.execute('''
+        SELECT id_art, title, username, name_cat, datetime
+        FROM articles 
+        INNER JOIN authors ON articles.author = AUTHORS.id_author 
+        INNER JOIN categories ON articles.category = categories.id_cat
+        ORDER BY datetime DESC
+    ''')
+
+        # Get column names from cursor.description
+        column_names = [i[0] for i in cursor.description]
+
+        # Fetch data and format into list of dictionaries
+        data = []
+        for row in cursor.fetchall():
+            data.append(dict(zip(column_names, row)))
+                
+        return jsonify(data)
+
+        cursor.close()
+        
+@app.route('/api/detailartikel')
+def detaildosen():
+
+    if 'id' in request.args:
+        cursor = mysql.connection.cursor()
+        sql = "SELECT * FROM articles WHERE id_art = %s"
+        val = (request.args['id'],)
+        cursor.execute(sql, val)
+
+        # Get column names from cursor.description
+        column_names = [i[0] for i in cursor.description]
+        
+        # Fetch data and format into list of dictionaries
+        data = []
+        for row in cursor.fetchall():
+            data.append(dict(zip(column_names, row)))
+            
+        return jsonify(data)
+        cursor.close()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='50', debug=True)
