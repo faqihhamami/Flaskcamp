@@ -72,8 +72,9 @@ def buy():
         # send to wa  - install pywhatkit 5.4
         import pywhatkit as w
         note = f'No Invoice {invoicenumber} \nAnda telah membeli {products} \nTotal belanja adalah {total}'
-        w.sendwhatmsg("+6281563725902", str(note) ,h,m+2)
-
+        # w.sendwhatmsg("+6281563725902", str(note) ,h,m+2)
+        w.sendwhatmsg("+6287888222025", str(note) ,h,m+2)
+        
         return redirect(url_for('dash'))
 
 @app.route('/dash', methods=['POST', 'GET'])

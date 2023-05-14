@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h2>total = {{total}}</h2>
+        <form action="/checkout", method="post">
+            Nama Konsumen : <input type="text" value="{{buyer}}" name="buyer">
+            <input type="hidden" value="{{category}}" name="category">
+            {% for product, price, qty in detail %}
+            <div class="row">
+                <input type="hidden" value="{{product}}" name="product[]">
+                <input type="hidden" value="{{price}}" name="price[]">
+                <input type="hidden" value="{{qty}}" name="qty[]">
+            </div>
+            
+            {% endfor %}
+
+            <div class="row">
+                <button class="btn btn-primary">Checkout</button>
+            </div>
+        </form>
+    </div>
+    
+</body>
+</html>

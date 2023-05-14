@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='bootstrap.min.css') }}">
+
+    <title>Document</title>
+</head>
+<body>
+   <div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>Detail Invoice </h2>
+                
+                <table class="table table-striped ">
+                <thead>
+                <tr>
+                    <th scope="col">Product</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for d in detail %}
+                        <tr>
+                            <td>{{ d[2] }}</td>
+                            <td>{{ d[3] }}</td>
+                            <td>{{ d[4] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <a href="{{ url_for('dash') }}" class="btn btn-info" role="button">Back</a>
+        </div>
+    </div>
+   </div>
+</body>
+</html>

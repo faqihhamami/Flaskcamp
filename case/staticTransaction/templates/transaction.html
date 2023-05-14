@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Order Bon</h2>
+        <div class="row">
+            <form action="/calculate", method="POST">
+                <div class="row">
+                    <input type="text" class="form-control" placeholder="Masukkan Nama" name="buyer" required>
+                    <SELECT name="category" class="form-control" >
+                        <option value="" selected disabled>Please select payment method</option>
+                        {% for j in payment %}
+                            <OPTION value={{j[0]}}>{{j[1]}}</OPTION>
+                        {% endfor %}
+                    </SELECT>
+                </div>
+
+                {% for product, price, qty in trans %}
+                <div class="row">
+                    
+                    <SELECT name="{{ product }}">
+                        <option value="" selected disabled>Select Product</option>
+                        {% for j in theproduct %}
+                            <OPTION value={{j[0]}}>{{j[1]}}</OPTION>
+                        {% endfor %}
+                    </SELECT>
+                    <input type="text" placeholder="price" name="{{ price }}">
+                    <input type="text" placeholder="qty" name="{{ qty }}">
+                </div>
+                {% endfor %}
+                <button class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
